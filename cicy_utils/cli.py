@@ -99,7 +99,7 @@ def version():
     latest = get_latest_version()
     
     if latest:
-        if version.parse(latest) > version.parse(current):
+        if pkg_version.parse(latest) > pkg_version.parse(current):
             console.print(f"[bold red]Update available![/bold red] Latest version: [green]v{latest}[/green]")
             console.print("Run [bold cyan]cicy update[/bold cyan] to upgrade")
         else:
