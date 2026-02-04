@@ -36,9 +36,9 @@ jobs:
       run: |
         $output = python -m cicy_utils.cli hello --style simple
         if ($output -match "Hello, World!") {
-          Write-Host "✓ Hello test passed"
+          Write-Host "Hello test passed"
         } else {
-          Write-Host "✗ Hello test failed"
+          Write-Host "Hello test failed"
           Write-Host "Output: $output"
           exit 1
         }
