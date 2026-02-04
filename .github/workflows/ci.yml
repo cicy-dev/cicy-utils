@@ -44,6 +44,7 @@ jobs:
         python -m cicy_utils.cli ip || echo "IP command may fail due to network restrictions"
     
     - name: Verify hello output
+      shell: bash
       run: |
         output=$(python -m cicy_utils.cli hello --style simple)
         echo "Output: $output"
