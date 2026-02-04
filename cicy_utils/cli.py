@@ -12,7 +12,7 @@ import sys
 import subprocess
 import requests
 import json
-from packaging import version
+from packaging import version as pkg_version
 
 console = Console()
 
@@ -146,7 +146,7 @@ def update():
         console.print("[red]❌ Could not check for updates[/red]")
         return
     
-    if version.parse(latest) <= version.parse(current):
+    if pkg_version.parse(latest) <= pkg_version.parse(current):
         console.print(f"[green]✅ Already up to date! (v{current})[/green]")
         return
     
