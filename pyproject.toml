@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cicy-utils"
-version = "0.2.2"
+version = "0.2.3"
 description = "Cross-platform development utilities and tools"
 authors = [{name = "Cicy Dev", email = "dev@cicy.dev"}]
 license = {text = "MIT"}
