@@ -9,7 +9,7 @@ description = "Cross-platform development utilities and tools"
 authors = [{name = "Cicy Dev", email = "dev@cicy.dev"}]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 keywords = ["utilities", "tools", "development", "cross-platform"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -17,11 +17,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Utilities",
 ]
@@ -49,3 +49,9 @@ Homepage = "https://github.com/cicy-dev/cicy-utils"
 Repository = "https://github.com/cicy-dev/cicy-utils.git"
 Issues = "https://github.com/cicy-dev/cicy-utils/issues"
 Documentation = "https://github.com/cicy-dev/cicy-utils/docs"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
