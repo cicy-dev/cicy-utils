@@ -19,10 +19,10 @@ console = Console()
 def get_current_version():
     """Get current version from package"""
     try:
-        from cicy_utils import __version__
-        return __version__
-    except ImportError:
-        return "0.1.0"
+        import importlib.metadata
+        return importlib.metadata.version("cicy-utils")
+    except Exception:
+        return "0.2.0"
 
 def get_latest_version():
     """Get latest version from PyPI"""
