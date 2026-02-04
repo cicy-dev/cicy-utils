@@ -1,37 +1,43 @@
 import subprocess
 import sys
 import os
-import platform
-
-def run_cicy_command(args):
-    """Run cicy command with Windows-specific handling."""
-    # Always use python module execution for consistency
-    cmd = [sys.executable, "-m", "cicy_utils.cli"] + args
-    return subprocess.run(cmd, capture_output=True, text=True, timeout=30)
 
 def test_cicy_hello_simple():
     """Test that cicy hello --style simple works and contains expected output."""
-    result = run_cicy_command(["hello", "--style", "simple"])
-    print(f"Command output: {result.stdout}")
-    print(f"Command stderr: {result.stderr}")
+    # Direct module execution - most reliable on Windows
+    cmd = [sys.executable, "-m", "cicy_utils.cli", "hello", "--style", "simple"]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    
+    print(f"Command: {' '.join(cmd)}")
     print(f"Return code: {result.returncode}")
-    assert result.returncode == 0, f"Command failed with stderr: {result.stderr}, stdout: {result.stdout}"
-    assert "Hello, World!" in result.stdout
+    print(f"Stdout: {repr(result.stdout)}")
+    print(f"Stderr: {repr(result.stderr)}")
+    
+    assert result.returncode == 0, f"Command failed: {result.stderr}"
+    assert "Hello, World!" in result.stdout, f"Expected output not found in: {result.stdout}"
 
 def test_cicy_hello_with_name():
     """Test that cicy hello with custom name works."""
-    result = run_cicy_command(["hello", "--name", "Test", "--style", "simple"])
-    print(f"Command output: {result.stdout}")
-    print(f"Command stderr: {result.stderr}")
+    cmd = [sys.executable, "-m", "cicy_utils.cli", "hello", "--name", "Test", "--style", "simple"]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    
+    print(f"Command: {' '.join(cmd)}")
     print(f"Return code: {result.returncode}")
-    assert result.returncode == 0, f"Command failed with stderr: {result.stderr}, stdout: {result.stdout}"
-    assert "Hello, Test!" in result.stdout
+    print(f"Stdout: {repr(result.stdout)}")
+    print(f"Stderr: {repr(result.stderr)}")
+    
+    assert result.returncode == 0, f"Command failed: {result.stderr}"
+    assert "Hello, Test!" in result.stdout, f"Expected output not found in: {result.stdout}"
 
 def test_cicy_version():
     """Test that cicy version command works."""
-    result = run_cicy_command(["version"])
-    print(f"Command output: {result.stdout}")
-    print(f"Command stderr: {result.stderr}")
+    cmd = [sys.executable, "-m", "cicy_utils.cli", "version"]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    
+    print(f"Command: {' '.join(cmd)}")
     print(f"Return code: {result.returncode}")
-    assert result.returncode == 0, f"Command failed with stderr: {result.stderr}, stdout: {result.stdout}"
-    assert "0.1.0" in result.stdout
+    print(f"Stdout: {repr(result.stdout)}")
+    print(f"Stderr: {repr(result.stderr)}")
+    
+    assert result.returncode == 0, f"Command failed: {result.stderr}"
+    assert "0.1.0" in result.stdout, f"Expected version not found in: {result.stdout}"
