@@ -45,19 +45,22 @@ jobs:
     
     - name: Test cicy hello command
       run: |
-        cicy hello --style simple
+        python -m cicy_utils.cli hello --style simple
     
     - name: Verify output contains "Hello, World!"
-      shell: bash
       run: |
-        output=$(cicy hello --style simple)
-        if [[ "$output" == *"Hello, World!"* ]]; then
-          echo "✅ Test passed: Output contains 'Hello, World!'"
-        else
-          echo "❌ Test failed: Output does not contain 'Hello, World!'"
-          echo "Actual output: $output"
-          exit 1
-        fi
+        python -c "
+        import subprocess
+        import sys
+        result = subprocess.run([sys.executable, '-m', 'cicy_utils.cli', 'hello', '--style', 'simple'], capture_output=True, text=True)
+        output = result.stdout.strip()
+        if 'Hello, World!' in output:
+            print('✅ Test passed: Output contains \"Hello, World!\"')
+        else:
+            print('❌ Test failed: Output does not contain \"Hello, World!\"')
+            print(f'Actual output: {output}')
+            sys.exit(1)
+        "
 
   publish:
     needs: test
