@@ -38,7 +38,7 @@ def get_latest_version():
 @click.group()
 @click.version_option(version=get_current_version())
 def main():
-    """🛠️ Cicy Utils - Cross-platform development utilities and tools"""
+    """Cicy Utils - Cross-platform development utilities and tools"""
     pass
 
 @main.command()
@@ -70,13 +70,13 @@ def hello(name, style):
         return
     
     # Fancy style (default)
-    title = Text(f"Hello, {name}! 👋", style="bold magenta")
+    title = Text(f"Hello, {name}!", style="bold magenta")
     
     info_text = ""
     for key, value in system_info.items():
         info_text += f"[cyan]{key}:[/cyan] [white]{value}[/white]\n"
     
-    info_text += f"\n[green]✨ Cicy Utils v{get_current_version()} is ready![/green]"
+    info_text += f"\n[green]Cicy Utils v{get_current_version()} is ready![/green]"
     
     panel = Panel(
         info_text.strip(),
@@ -103,9 +103,9 @@ def version():
             console.print(f"[bold red]Update available![/bold red] Latest version: [green]v{latest}[/green]")
             console.print("Run [bold cyan]cicy update[/bold cyan] to upgrade")
         else:
-            console.print("[green]✅ You have the latest version![/green]")
+            console.print("[green]You have the latest version![/green]")
     else:
-        console.print("[yellow]⚠️  Could not check for updates[/yellow]")
+        console.print("[yellow]Could not check for updates[/yellow]")
 
 @main.command()
 def ip():
@@ -127,14 +127,14 @@ def ip():
             console.print(f"\n[bold]Your IP:[/bold] [green]{data.get('ip', 'N/A')}[/green]")
             
         else:
-            console.print(f"[red]❌ Failed to get IP information. Status: {response.status_code}[/red]")
+            console.print(f"[red]Failed to get IP information. Status: {response.status_code}[/red]")
             
     except requests.exceptions.RequestException as e:
-        console.print(f"[red]❌ Network error: {e}[/red]")
+        console.print(f"[red]Network error: {e}[/red]")
     except json.JSONDecodeError:
-        console.print("[red]❌ Invalid response format[/red]")
+        console.print("[red]Invalid response format[/red]")
     except Exception as e:
-        console.print(f"[red]❌ Error: {e}[/red]")
+        console.print(f"[red]Error: {e}[/red]")
 
 @main.command()
 def update():
@@ -143,11 +143,11 @@ def update():
     latest = get_latest_version()
     
     if not latest:
-        console.print("[red]❌ Could not check for updates[/red]")
+        console.print("[red]Could not check for updates[/red]")
         return
     
     if pkg_version.parse(latest) <= pkg_version.parse(current):
-        console.print(f"[green]✅ Already up to date! (v{current})[/green]")
+        console.print(f"[green]Already up to date! (v{current})[/green]")
         return
     
     console.print(f"[yellow]Updating from v{current} to v{latest}...[/yellow]")
@@ -158,11 +158,11 @@ def update():
             sys.executable, "-m", "pip", "install", "--upgrade", "cicy-utils"
         ], capture_output=True, text=True, check=True)
         
-        console.print(f"[green]✅ Successfully updated to v{latest}![/green]")
+        console.print(f"[green]Successfully updated to v{latest}![/green]")
         console.print("Run [bold cyan]cicy version[/bold cyan] to verify the update")
         
     except subprocess.CalledProcessError as e:
-        console.print(f"[red]❌ Update failed: {e}[/red]")
+        console.print(f"[red]Update failed: {e}[/red]")
         console.print("Try running: [bold]pip install --upgrade cicy-utils[/bold]")
 
 if __name__ == '__main__':
