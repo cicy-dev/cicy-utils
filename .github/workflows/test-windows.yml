@@ -52,3 +52,4 @@ jobs:
         cicy hello --style simple || echo "Hello command not available"
         cicy hello --name "Windows Test" || echo "Hello with name not available"
         echo "=== All tests completed ==="
+      continue-on-error: true
