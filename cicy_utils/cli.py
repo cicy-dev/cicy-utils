@@ -38,7 +38,7 @@ def get_latest_version():
 @click.group()
 @click.version_option(version=get_current_version())
 def main():
-    """🛠️ Cicy Utils - Cross-platform development utilities"""
+    """🛠️ Cicy Utils - Cross-platform development utilities and tools"""
     pass
 
 @main.command()
