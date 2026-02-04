@@ -1,0 +1,49 @@
+name: Test Windows PyPI
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+jobs:
+  test-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+
+    steps:
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install cicy from PyPI
+      run: |
+        python -m pip install --upgrade pip
+        pip install cicy-utils
+    
+    - name: Test cicy version
+      run: |
+        cicy version
+    
+    - name: Test cicy update
+      run: |
+        cicy update
+    
+    - name: Test cicy ip
+      run: |
+        cicy ip
+    
+    - name: Test cicy version again
+      run: |
+        cicy version
+    
+    - name: Check all outputs
+      run: |
+        echo "=== Testing all commands ==="
+        cicy --help
+        cicy hello --style simple
+        cicy hello --name "Windows Test"
+        echo "=== All tests completed ==="
