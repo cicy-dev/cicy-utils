@@ -108,6 +108,35 @@ def version():
         console.print("[yellow]⚠️  Could not check for updates[/yellow]")
 
 @main.command()
+def ip():
+    """Get public IP information from api.myip.com"""
+    try:
+        console.print("[yellow]Fetching IP information...[/yellow]")
+        response = requests.get("https://api.myip.com", timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            
+            # Display detailed information
+            console.print("\n[bold green]IP Information:[/bold green]")
+            console.print(f"[cyan]IP Address:[/cyan] [white]{data.get('ip', 'N/A')}[/white]")
+            console.print(f"[cyan]Country:[/cyan] [white]{data.get('country', 'N/A')}[/white]")
+            console.print(f"[cyan]Country Code:[/cyan] [white]{data.get('cc', 'N/A')}[/white]")
+            
+            # Show just the IP in simple format
+            console.print(f"\n[bold]Your IP:[/bold] [green]{data.get('ip', 'N/A')}[/green]")
+            
+        else:
+            console.print(f"[red]❌ Failed to get IP information. Status: {response.status_code}[/red]")
+            
+    except requests.exceptions.RequestException as e:
+        console.print(f"[red]❌ Network error: {e}[/red]")
+    except json.JSONDecodeError:
+        console.print("[red]❌ Invalid response format[/red]")
+    except Exception as e:
+        console.print(f"[red]❌ Error: {e}[/red]")
+
+@main.command()
 def update():
     """Update cicy-utils to the latest version"""
     current = get_current_version()
